@@ -3,19 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>dude — enderman style</title>
+  <title>dude — home</title>
+  <!-- Use similar font to enderman.ch (if you find what they use, replace) -->
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
   <style>
+    /* Reset + basic setup */
     * {
-      margin: 0; padding: 0; box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
     html, body {
       height: 100%;
       background: #000;
-      color: #fff;
-      font-family: monospace;
-      overflow: hidden;
+      color: #eaeaea;
+      font-family: 'VT323', monospace;
+      overflow-x: hidden;
     }
-
     a {
       color: #8a63ff;
       text-decoration: none;
@@ -24,109 +28,112 @@
       text-decoration: underline;
     }
 
-    .wrapper {
+    /* Center content vertically + spacing like enderman.ch */
+    .main {
       display: flex;
       flex-direction: column;
-      justify-content: start;
       align-items: center;
       width: 100%;
-      height: 100%;
-      padding: 40px 20px;
-      animation: fadeInPage 1s ease-in-out both;
-    }
-
-    @keyframes fadeInPage {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 80px 20px;
     }
 
     header {
       text-align: center;
       margin-bottom: 60px;
-      animation: fadeIn 1s ease 0.3s both;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out forwards;
     }
-
     header h1 {
-      font-size: 3rem;
-      letter-spacing: 2px;
+      font-size: 4rem;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
     }
-    header p.subtitle {
-      margin-top: 12px;
-      font-size: 1.1rem;
-      color: #aaa;
+    header .subtitle {
+      font-size: 1.2rem;
+      color: #aaaaaa;
     }
 
     nav {
       display: flex;
-      gap: 30px;
+      gap: 24px;
       margin-bottom: 80px;
-      animation: fadeIn 1s ease 0.5s both;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.3s forwards;
     }
-
     nav a {
-      font-size: 1.2rem;
-      padding: 8px 12px;
-      border: 1px solid #333;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 4px;
-      transition: all 0.2s ease-in-out;
+      font-size: 1.3rem;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05);
+      transition: background 0.2s, transform 0.2s;
     }
-
     nav a:hover {
-      background: rgba(255, 255, 255, 0.12);
-      transform: scale(1.05);
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
     }
 
     #content {
-      max-width: 800px;
-      width: 100%;
+      max-width: 700px;
       text-align: left;
       opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
-
     #content.show {
       opacity: 1;
       transform: translateY(0);
     }
-
     #content h2 {
-      font-size: 2rem;
-      margin-bottom: 20px;
+      font-size: 2.5rem;
+      margin-bottom: 24px;
+      color: #fff;
     }
-
     #content p {
-      margin-bottom: 16px;
-      line-height: 1.5;
-      color: #ddd;
+      margin-bottom: 18px;
+      line-height: 1.6;
+      color: #ccc;
+    }
+    #content strong {
+      color: #fff;
+    }
+    #content em {
+      color: #888;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* Animation keyframes */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
+  <div class="main">
     <header>
       <h1>dude</h1>
-      <p class="subtitle">just a nerd on the internet</p>
+      <div class="subtitle">just a nerd on the internet</div>
     </header>
 
     <nav>
-      <a href="#" onclick="setContent('about')">About</a>
-      <a href="#" onclick="setContent('projects')">Projects</a>
-      <a href="#" onclick="setContent('socials')">Socials</a>
-      <a href="#" onclick="setContent('blog')">Blog</a>
+      <a href="#" onclick="setContent('about'); return false;">About</a>
+      <a href="#" onclick="setContent('projects'); return false;">Projects</a>
+      <a href="#" onclick="setContent('socials'); return false;">Socials</a>
+      <a href="#" onclick="setContent('blog'); return false;">Blog</a>
     </nav>
 
     <div id="content" class="show">
       <h2>Welcome 👋</h2>
-      <p>I'm <strong>dude</strong> — a curious dev, tester, and semi-chaotic creative.</p>
-      <p>I break stuff. Then I fix it. Then I break it better.</p>
-      <p><em>Use the buttons above to explore my lair.</em></p>
+      <p>I'm <strong>dude</strong> — a curious dev, tester, and semi‑chaotic creative. I break stuff. Then I fix it. Then I break it better.</p>
+      <p><em>Use the links above to explore my lair.</em></p>
     </div>
   </div>
 
@@ -135,33 +142,31 @@
       about: `
         <h2>About</h2>
         <p>Hey, I’m <strong>dude</strong>. I build weird tools, test edge cases, and mess with tech just to see what breaks. It’s a lifestyle.</p>
-        <p>Currently manifesting opportunities or just building cool stuff in the void.</p>
+        <p>Thinking about what’s next, building side projects, maybe contributing, whatever feels right.</p>
       `,
       projects: `
         <h2>Projects</h2>
-        <p><strong>🧪 BreakThings.js</strong> — A test framework that fails elegantly.</p>
-        <p><strong>🎮 GlitchEngine</strong> — Micro game engine built in chaos mode.</p>
-        <p><strong>🔍 Inspectr</strong> — A dev tool for exploring hidden internals.</p>
+        <p><strong>🧪 BreakThings.js</strong> — A test framework that reveals edge cases.</p>
+        <p><strong>🎮 GlitchEngine</strong> — Micro‑game engine built with fun chaos.</p>
+        <p><strong>🔍 Inspectr</strong> — Developer tools for peering under the hood.</p>
       `,
       socials: `
         <h2>Socials</h2>
-        <p><a href="https://www.youtube.com/channel/UC3AIrkPjQYPjK5m5m0LwF6g" target="_blank">📺 YouTube</a></p>
+        <p><a href="https://www.youtube.com/channel/UC3AIrkPjQYPjK5m5m0LwF6g" target="_blank" rel="noopener noreferrer">YouTube</a></p>
       `,
       blog: `
         <h2>Blog</h2>
-        <p>Someday I’ll blog. This might be it. Or not.</p>
+        <p>Maybe one day I'll maintain a blog. Could be ideas, experiments, or rants.</p>
       `
     };
 
     function setContent(key) {
-      const el = document.getElementById('content');
-
-      // Fade out current content
-      el.classList.remove('show');
-
+      const c = document.getElementById('content');
+      // Hide then show with animation
+      c.classList.remove('show');
       setTimeout(() => {
-        el.innerHTML = contentMap[key] || `<h2>404</h2><p>Not found</p>`;
-        el.classList.add('show');
+        c.innerHTML = contentMap[key] || `<h2>404</h2><p>Nothing here…</p>`;
+        c.classList.add('show');
       }, 200);
     }
   </script>
