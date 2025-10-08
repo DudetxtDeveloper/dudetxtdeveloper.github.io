@@ -1,215 +1,135 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>dude — retro terminal</title>
-  
-  <!-- Pixel monospace font -->
-  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
-  
+  <title>dude — enderman style</title>
   <style>
-    /* Reset */
+    /* Basic reset */
     * {
       margin: 0; padding: 0; box-sizing: border-box;
     }
     html, body {
       height: 100%;
-      background: #121212 url('https://grainy-gradients.vercel.app/noise.svg');
-      background-size: cover;
-      font-family: 'VT323', monospace;
-      color: #00ff00;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      user-select: none;
-    }
-
-    /* Windows 95 style window */
-    .window {
-      width: 640px;
-      max-width: 100%;
-      background: #c0c0c0;
-      border: 2px solid #000;
-      box-shadow:
-        2px 2px 0 #fff,
-        4px 4px 0 #000;
-      font-size: 22px;
-      color: #000;
-      display: flex;
-      flex-direction: column;
-      user-select: text;
-    }
-
-    /* Title bar */
-    .title-bar {
-      background: linear-gradient(to bottom, #000080, #0000a0);
-      color: white;
-      padding: 4px 8px;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #fff;
-      text-shadow: 1px 1px #000;
-      height: 30px;
-    }
-
-    /* Title text */
-    .title-bar-text {
-      user-select: none;
-    }
-
-    /* Close button style */
-    .title-bar-controls {
-      display: flex;
-      gap: 4px;
-    }
-    .title-bar-controls button {
-      width: 28px;
-      height: 24px;
-      background: #c0c0c0;
-      border: 2px solid #fff;
-      box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #404040;
-      cursor: pointer;
-      font-weight: bold;
-      color: #000;
-      font-family: 'VT323', monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0;
-      user-select: none;
-      transition: background 0.15s;
-    }
-    .title-bar-controls button:hover {
-      background: #ff0000;
-      color: #fff;
-      border-color: #a00000;
-      box-shadow: none;
-    }
-
-    /* Content area */
-    .window-body {
       background: #000;
-      color: #00ff00;
-      padding: 20px 28px;
-      font-size: 1rem;
-      flex-grow: 1;
-      overflow-y: auto;
-      line-height: 1.4;
-    }
-
-    /* Navigation buttons (like Win95 buttons) */
-    nav {
-      margin-bottom: 20px;
-      display: flex;
-      gap: 14px;
-      user-select: none;
-    }
-    nav button {
-      background: #c0c0c0;
-      border: 2px solid #fff;
-      box-shadow:
-        inset 1px 1px 0 #fff,
-        inset -1px -1px 0 #404040;
-      padding: 6px 16px;
-      font-family: 'VT323', monospace;
-      font-size: 20px;
-      cursor: pointer;
-      color: #000;
-      transition: background 0.2s;
-    }
-    nav button:hover {
-      background: #0000ff;
       color: #fff;
-      border-color: #0000aa;
-      box-shadow: none;
-    }
-    nav button.active {
-      background: #000080;
-      color: #0f0;
-      border-color: #00ff00;
-      box-shadow: inset 1px 1px 4px #00ff00;
+      font-family: monospace;
+      overflow: hidden;
     }
 
     a {
-      color: #00ff00;
-      text-decoration: underline;
-      cursor: pointer;
+      color: #8a63ff;
+      text-decoration: none;
     }
     a:hover {
-      color: #aaffaa;
+      text-decoration: underline;
     }
 
-    /* Scrollbar styling for content */
-    .window-body::-webkit-scrollbar {
-      width: 8px;
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 40px 20px;
     }
-    .window-body::-webkit-scrollbar-track {
-      background: #111;
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
     }
-    .window-body::-webkit-scrollbar-thumb {
-      background: #00ff00;
+    header h1 {
+      font-size: 3rem;
+      letter-spacing: 2px;
+    }
+    header p.subtitle {
+      margin-top: 12px;
+      font-size: 1.1rem;
+      color: #aaa;
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 80px;
+    }
+    nav a {
+      font-size: 1.2rem;
+      padding: 8px 12px;
+      border: 1px solid #333;
+      background: rgba(255, 255, 255, 0.05);
       border-radius: 4px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+    }
+
+    #content {
+      max-width: 800px;
+      width: 100%;
+      text-align: left;
+    }
+    #content h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    #content p {
+      margin-bottom: 16px;
+      line-height: 1.5;
+      color: #ddd;
     }
   </style>
 </head>
 <body>
-  <div class="window" role="main" aria-label="Developer portfolio window">
-    <div class="title-bar">
-      <div class="title-bar-text">dude — web terminal</div>
-      <div class="title-bar-controls" role="toolbar" aria-label="Window controls">
-        <button title="Close window" aria-label="Close window" onclick="alert('No closing here!')">×</button>
-      </div>
-    </div>
-    <div class="window-body">
-      <nav aria-label="Primary navigation">
-        <button id="btn-about" class="active" onclick="setContent('about')">about</button>
-        <button id="btn-projects" onclick="setContent('projects')">projects</button>
-        <button id="btn-socials" onclick="setContent('socials')">socials</button>
-        <button id="btn-blog" onclick="setContent('blog')">blog</button>
-      </nav>
-      <div id="content" tabindex="0" aria-live="polite">
-        <p>Welcome 👋</p>
-        <p>I'm <strong>dude</strong>, a curious dev, tester, and semi-chaotic creative.</p>
-        <p>I break stuff. Then I fix it. Then I break it better.</p>
-        <p><em>Use the buttons above to explore my lair.</em></p>
-      </div>
+  <div class="wrapper">
+    <header>
+      <h1>dude</h1>
+      <p class="subtitle">just a nerd on the internet</p>
+    </header>
+
+    <nav>
+      <a href="#" onclick="setContent('about')">About</a>
+      <a href="#" onclick="setContent('projects')">Projects</a>
+      <a href="#" onclick="setContent('socials')">Socials</a>
+      <a href="#" onclick="setContent('blog')">Blog</a>
+    </nav>
+
+    <div id="content">
+      <h2>Welcome 👋</h2>
+      <p>I'm <strong>dude</strong> — a curious dev, tester, and semi-chaotic creative. I break stuff. Then I fix it. Then I break it better.</p>
+      <p><em>Use the buttons above to explore my lair.</em></p>
     </div>
   </div>
 
   <script>
     const contentMap = {
       about: `
+        <h2>About</h2>
         <p>Hey, I’m <strong>dude</strong>. I build weird tools, test edge cases, and mess with tech just to see what breaks. It’s a lifestyle.</p>
-        <p>Currently manifesting a role at Discord. Or maybe just building cool stuff alone in the void.</p>
+        <p>Currently manifesting opportunities or just building cool stuff in the void.</p>
       `,
       projects: `
-        <p><strong>🧪 BreakThings.js</strong> — A test framework that breaks before you do.</p>
-        <p><strong>🎮 GlitchEngine</strong> — Micro game engine built in the chaos zone.</p>
-        <p><strong>🔍 Inspectr</strong> — A dev tool for poking around places you probably shouldn’t.</p>
-        <p><em>More to come.™ Stay unstable.</em></p>
+        <h2>Projects</h2>
+        <p><strong>🧪 BreakThings.js</strong> — A test framework that fails elegantly.</p>
+        <p><strong>🎮 GlitchEngine</strong> — Micro game engine built in chaos mode.</p>
+        <p><strong>🔍 Inspectr</strong> — A dev tool for exploring hidden internals.</p>
       `,
       socials: `
-        <p><a href="https://www.youtube.com/channel/UC3AIrkPjQYPjK5m5m0LwF6g" target="_blank" rel="noopener noreferrer">📺 YouTube</a></p>
+        <h2>Socials</h2>
+        <p><a href="https://youtube.com" target="_blank">YouTube</a></p>
       `,
       blog: `
-        <p>I keep saying I’ll blog. Maybe I will. Maybe I won't.</p>
+        <h2>Blog</h2>
+        <p>Someday I’ll blog. This might be it. Or not.</p>
       `
     };
 
     function setContent(key) {
-      const container = document.getElementById("content");
-      container.innerHTML = contentMap[key] || "<p>404: That tab did nothing.</p>";
-
-      // Update active button styling
-      document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
-      const activeBtn = document.getElementById('btn-' + key);
-      if (activeBtn) activeBtn.classList.add('active');
-
-      container.focus();
+      const el = document.getElementById('content');
+      el.innerHTML = contentMap[key] || `<h2>404</h2><p>Not found</p>`;
     }
   </script>
 </body>
