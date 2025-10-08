@@ -2,132 +2,146 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>dude — home</title>
-  <!-- Use similar font to enderman.ch (if you find what they use, replace) -->
   <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
   <style>
-    /* Reset + basic setup */
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      margin: 0; padding: 0; box-sizing: border-box;
     }
     html, body {
       height: 100%;
+      font-family: 'VT323', monospace;
       background: #000;
       color: #eaeaea;
-      font-family: 'VT323', monospace;
-      overflow-x: hidden;
-    }
-    a {
-      color: #8a63ff;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
+      overflow: hidden;
     }
 
-    /* Center content vertically + spacing like enderman.ch */
-    .main {
+    canvas#bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 80px 20px;
+      justify-content: center;
+      text-align: center;
+      min-height: 100vh;
+      padding: 60px 20px;
+      animation: fadeIn 1.2s ease;
     }
 
-    header {
-      text-align: center;
-      margin-bottom: 60px;
-      opacity: 0;
-      animation: fadeUp 0.8s ease-out forwards;
-    }
     header h1 {
-      font-size: 4rem;
-      letter-spacing: 3px;
+      font-size: 4.5rem;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px #8a63ff;
       margin-bottom: 10px;
     }
-    header .subtitle {
-      font-size: 1.2rem;
-      color: #aaaaaa;
+
+    header .tagline {
+      font-size: 1.5rem;
+      color: #888;
+      margin-bottom: 40px;
     }
 
     nav {
       display: flex;
-      gap: 24px;
-      margin-bottom: 80px;
-      opacity: 0;
-      animation: fadeUp 0.8s ease-out 0.3s forwards;
+      gap: 18px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
+
     nav a {
-      font-size: 1.3rem;
-      padding: 8px 14px;
+      font-size: 1.4rem;
+      padding: 6px 14px;
+      border: 1px solid #444;
       border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.2);
       background: rgba(255,255,255,0.05);
-      transition: background 0.2s, transform 0.2s;
+      color: #eaeaea;
+      transition: all 0.2s ease;
     }
+
     nav a:hover {
-      background: rgba(255,255,255,0.12);
-      transform: translateY(-2px);
+      background: rgba(138,99,255,0.1);
+      color: #c9a8ff;
+      box-shadow: 0 0 8px #8a63ff80;
+      transform: translateY(-1px);
     }
 
     #content {
-      max-width: 700px;
-      text-align: left;
+      max-width: 720px;
+      padding: 20px;
+      font-size: 1.3rem;
+      line-height: 1.6;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    #content h2 {
+      font-size: 2.2rem;
+      margin-bottom: 18px;
+      color: #fff;
+    }
+
+    #content p {
+      color: #ccc;
+      margin-bottom: 16px;
+    }
+
+    a.inline {
+      color: #8a63ff;
+      text-decoration: none;
+    }
+    a.inline:hover {
+      text-decoration: underline;
+    }
+
+    .hide {
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
     }
-    #content.show {
+
+    .show {
       opacity: 1;
       transform: translateY(0);
     }
-    #content h2 {
-      font-size: 2.5rem;
-      margin-bottom: 24px;
-      color: #fff;
-    }
-    #content p {
-      margin-bottom: 18px;
-      line-height: 1.6;
-      color: #ccc;
-    }
-    #content strong {
-      color: #fff;
-    }
-    #content em {
-      color: #888;
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to   { opacity: 1; transform: scale(1); }
     }
 
-    /* Animation keyframes */
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 3rem;
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+      nav a {
+        font-size: 1.2rem;
+        padding: 4px 10px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="main">
+  <canvas id="bg"></canvas>
+  <div class="container">
     <header>
       <h1>dude</h1>
-      <div class="subtitle">just a nerd on the internet</div>
+      <div class="tagline">just a nerd on the internet</div>
     </header>
 
     <nav>
-      <a href="#" onclick="setContent('about'); return false;">About</a>
-      <a href="#" onclick="setContent('projects'); return false;">Projects</a>
-      <a href="#" onclick="setContent('socials'); return false;">Socials</a>
-      <a href="#" onclick="setContent('blog'); return false;">Blog</a>
+      <a href="#" onclick="switchContent('about')">About</a>
+      <a href="#" onclick="switchContent('projects')">Projects</a>
+      <a href="#" onclick="switchContent('socials')">Socials</a>
+      <a href="#" onclick="switchContent('blog')">Blog</a>
     </nav>
 
     <div id="content" class="show">
@@ -138,37 +152,82 @@
   </div>
 
   <script>
-    const contentMap = {
+    const content = {
       about: `
-        <h2>About</h2>
+        <h2>About Me</h2>
         <p>Hey, I’m <strong>dude</strong>. I build weird tools, test edge cases, and mess with tech just to see what breaks. It’s a lifestyle.</p>
-        <p>Thinking about what’s next, building side projects, maybe contributing, whatever feels right.</p>
+        <p>Always learning, always shipping. And sometimes disappearing into rabbit holes.</p>
       `,
       projects: `
         <h2>Projects</h2>
-        <p><strong>🧪 BreakThings.js</strong> — A test framework that reveals edge cases.</p>
-        <p><strong>🎮 GlitchEngine</strong> — Micro‑game engine built with fun chaos.</p>
-        <p><strong>🔍 Inspectr</strong> — Developer tools for peering under the hood.</p>
+        <p><strong>🧪 BreakThings.js</strong> — A framework for pushing your app to the edge.</p>
+        <p><strong>🎮 GlitchEngine</strong> — Minimal chaos-driven game engine.</p>
+        <p><strong>🔍 Inspectr</strong> — Tools for poking under the hood of anything web-based.</p>
       `,
       socials: `
         <h2>Socials</h2>
-        <p><a href="https://www.youtube.com/channel/UC3AIrkPjQYPjK5m5m0LwF6g" target="_blank" rel="noopener noreferrer">YouTube</a></p>
+        <p><a class="inline" href="https://www.youtube.com/channel/UC3AIrkPjQYPjK5m5m0LwF6g" target="_blank" rel="noopener">YouTube</a></p>
+        <p><a class="inline" href="https://github.com/" target="_blank">GitHub</a></p>
+        <p><a class="inline" href="https://twitter.com/" target="_blank">Twitter</a></p>
       `,
       blog: `
         <h2>Blog</h2>
-        <p>Maybe one day I'll maintain a blog. Could be ideas, experiments, or rants.</p>
+        <p>Maybe one day I’ll maintain a blog. Until then, this is a placeholder full of potential.</p>
+        <p>Expect experiments, breakdowns, weird tech, and digital chaos.</p>
       `
     };
 
-    function setContent(key) {
-      const c = document.getElementById('content');
-      // Hide then show with animation
-      c.classList.remove('show');
+    function switchContent(section) {
+      const el = document.getElementById('content');
+      el.classList.remove('show');
+      el.classList.add('hide');
       setTimeout(() => {
-        c.innerHTML = contentMap[key] || `<h2>404</h2><p>Nothing here…</p>`;
-        c.classList.add('show');
-      }, 200);
+        el.innerHTML = content[section] || '<h2>404</h2><p>Nothing to see here…</p>';
+        el.classList.remove('hide');
+        el.classList.add('show');
+      }, 250);
     }
+
+    // Background particles
+    const canvas = document.getElementById("bg");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function createParticles() {
+      particles = Array.from({ length: 70 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 1.5 + 0.5
+      }));
+    }
+
+    function updateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(255,255,255,0.07)";
+      for (let p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(updateParticles);
+    }
+
+    createParticles();
+    updateParticles();
   </script>
 </body>
 </html>
