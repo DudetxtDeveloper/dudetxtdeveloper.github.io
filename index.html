@@ -3,213 +3,198 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dude — Creations & More</title>
+  <title>Dude — Welcome</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* --- Reset & base --- */
+    /* Reset & Base */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     html, body {
-      width: 100%;
       height: 100%;
-    }
-    body {
-      background: #0a0a0a;
-      color: #ddd;
-      font-family: 'Courier New', Courier, monospace;
-      line-height: 1.5;
-      overflow-x: hidden;
-    }
-    a {
-      color: #8a63ff;
-      text-decoration: none;
-    }
-    a:hover {
-      color: #c0aaff;
+      background: #000 url('https://grainy-gradients.vercel.app/noise.svg');
+      background-size: cover;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+      line-height: 1.7;
     }
 
-    /* --- Header / Hero section --- */
-    header {
-      position: relative;
-      height: 60vh;
-      min-height: 400px;
+    body {
       display: flex;
-      flex-direction: column;
       justify-content: center;
+      align-items: start;
+      padding: 60px 20px;
+    }
+
+    a {
+      color: #4a5cff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Container */
+    .container {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 950px;
+      width: 100%;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+      color: #eaeaea;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
       align-items: center;
-      text-align: center;
-      background: radial-gradient(ellipse at center, #111 0%, #000 80%);
-      overflow: hidden;
+      gap: 15px;
+      margin-bottom: 30px;
     }
-    header::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA...') repeat; 
-      /* optional subtle noise / static texture overlay */
-      opacity: 0.05;
+
+    .header img {
+      height: 48px;
     }
-    header h1 {
-      color: #f0f0f0;
-      font-size: 4rem;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px rgba(138,99,255,0.6);
+
+    .header h1 {
+      font-size: 2rem;
     }
-    header p {
-      margin-top: 12px;
+
+    .subtitle {
+      font-size: 0.95rem;
       color: #aaa;
-      font-size: 1.2rem;
     }
 
     nav {
-      margin: 30px 0;
-      text-align: center;
+      display: flex;
+      justify-content: flex-end;
+      gap: 24px;
+      font-size: 1rem;
+      margin-bottom: 30px;
     }
+
     nav a {
-      margin: 0 20px;
-      font-size: 1.1rem;
-      position: relative;
-    }
-    nav a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 0%;
-      height: 2px;
-      background: #8a63ff;
-      transition: width 0.3s ease;
-    }
-    nav a:hover::after {
-      width: 100%;
+      color: #eaeaea;
     }
 
-    main {
-      width: 90%;
-      max-width: 800px;
-      margin: 0 auto;
-      padding-bottom: 100px;
-    }
-    section {
-      margin-bottom: 80px;
-    }
-    section h2 {
-      font-size: 2.4rem;
-      color: #f8f8f8;
-      border-left: 4px solid #8a63ff;
-      padding-left: 12px;
-      margin-bottom: 20px;
-    }
-    section p {
-      color: #bbb;
+    h2 {
+      font-size: 1.7rem;
+      margin: 20px 0 10px;
     }
 
-    .projects-list {
+    h3 {
+      font-size: 1.2rem;
+      margin: 18px 0 10px;
+      color: #fff;
+    }
+
+    p {
+      margin-bottom: 12px;
+    }
+
+    ul {
       list-style: none;
       padding: 0;
     }
-    .projects-list li {
-      background: #1a1a1a;
-      margin: 20px 0;
-      padding: 24px;
-      border: 1px solid #2e2e2e;
-      border-radius: 6px;
-      transition: transform 0.2s, background 0.3s;
-    }
-    .projects-list li:hover {
-      background: #272727;
-      transform: translateY(-3px);
-    }
-    .projects-list li a {
-      font-size: 1.2rem;
-      color: #8a63ff;
+
+    li {
+      margin-bottom: 8px;
     }
 
-    footer {
-      text-align: center;
-      padding: 60px 20px;
-      border-top: 1px solid #333;
-      color: #555;
-      font-size: 0.9rem;
-    }
-    footer small {
-      display: block;
-      margin-top: 8px;
-      color: #444;
+    .two-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-top: 20px;
     }
 
-    /* Optional: glitch / flicker animations */
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-      }
-      20%, 24%, 55% {
-        opacity: 0.4;
-      }
+    .left, .right {
+      flex: 1;
+      min-width: 250px;
     }
-    header h1 {
-      animation: flicker 3s infinite;
+
+    em {
+      color: #aaa;
+      font-size: 0.9em;
+    }
+
+    strong {
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .two-columns {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Dude</h1>
-    <p>Developer & Creator</p>
-  </header>
 
-  <nav>
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#blog">Blog</a>
-    <a href="#socials">Socials</a>
-  </nav>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Minecraft_Enderman_face.svg/1024px-Minecraft_Enderman_face.svg.png" alt="logo" />
+      <div>
+        <h1>Dude</h1>
+        <div class="subtitle">official website</div>
+      </div>
+    </div>
 
-  <main>
-    <section id="about">
-      <h2>About Me</h2>
-      <p>
-        Hello — I’m Dude. A passionate developer and tester. I dream of building cool stuff, exploring code, and learning everyday.
-      </p>
-    </section>
+    <!-- Nav -->
+    <nav>
+      <a href="#about">ℹ️ About</a>
+      <a href="#projects">📦 Projects</a>
+      <a href="#socials">🧑‍🤝‍🧑 Socials</a>
+      <a href="#blog">🖥️ Blog</a>
+    </nav>
 
-    <section id="projects">
-      <h2>My Projects</h2>
-      <ul class="projects-list">
-        <li>
-          <a href="project1.html">Nothing (yet)</a> — still working on it, coming soon.
-        </li>
-        <!-- more project entries -->
-      </ul>
-    </section>
+    <!-- Intro -->
+    <h2>Welcome 👋</h2>
+    <p>
+      I'm <strong>Dude</strong> — a curious developer, tester, and semi-introverted creative creature. I love breaking things, fixing them, and pretending I had a plan the whole time. You’ll find me rambling about code, learning weird tech things, and occasionally dreaming of working at Discord.
+    </p>
 
-    <section id="blog">
-      <h2>Blog</h2>
-      <p>
-        I haven’t started writing yet. But when I do, I’ll share thoughts, lessons, experiments here.
-      </p>
-    </section>
+    <!-- Two Column Layout -->
+    <div class="two-columns">
+      <!-- Left: What I do -->
+      <div class="left">
+        <h3>🛠️ What I do</h3>
+        <ul>
+          <li>💻 Build cross-platform apps with <strong>CSS</strong> & <strong>HTML</strong></li>
+          <li>🧪 Tinker with bugs — both intentional and... accidental</li>
+          <li>📹 Create tech videos (when I remember to hit record)</li>
+          <li>🐛 Analyze malware & learn from security breakdowns</li>
+        </ul>
+      </div>
 
-    <section id="socials">
-      <h2>Socials</h2>
-      <p>
-        <a href="https://www.youtube.com/channel/UC3AIrkPjQYPjK5m5m0LwF6g" target="_blank">YouTube</a>
-      </p>
-    </section>
-  </main>
+      <!-- Right: What I enjoy -->
+      <div class="right">
+        <h3>🧠 What I enjoy</h3>
+        <ul>
+          <li>🎬 Editing nerdy videos</li>
+          <li>🎮 Game design & solo dev life</li>
+          <li>🧘 Quiet, cozy code nights</li>
+        </ul>
+      </div>
+    </div>
 
-  <footer>
-    &copy; 2025 Dude. All rights reserved.
-    <small>Built with ❤️ and pure HTML/CSS</small>
-  </footer>
+    <p style="margin-top: 30px;"><strong>Want to learn more?</strong> Use the navigation bar above 👆</p>
+    <p><em>See you there! ~</em></p>
+  </div>
 
-  <script>
-    console.log("%cHey there, curious developer!", "color: #80c0ff; font-size: 16px;");
-    console.log("%cWhy are you snooping around? 😏", "color: #aaa; font-size: 14px;");
-    console.log("%cBuilt with love by Dude.", "color: #00ffae; font-size: 12px;");
-  </script>
 </body>
 </html>
