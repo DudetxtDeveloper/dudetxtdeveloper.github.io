@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dude — Web Terminal</title>
+  <title>dude — retro terminal</title>
   
-  <!-- Modern sans serif -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <!-- Pixel monospace font -->
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
   
   <style>
     /* Reset */
@@ -15,164 +15,176 @@
     }
     html, body {
       height: 100%;
-      background: #f5f7fa;
-      font-family: 'Inter', sans-serif;
-      color: #222;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 60px 20px;
-      min-height: 100vh;
-    }
-
-    .container {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-      max-width: 720px;
-      width: 100%;
-      padding: 40px 48px;
-    }
-
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .logo {
-      width: 64px;
-      height: 64px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #8a63ff 0%, #5e3fff 100%);
+      background: #121212 url('https://grainy-gradients.vercel.app/noise.svg');
+      background-size: cover;
+      font-family: 'VT323', monospace;
+      color: #00ff00;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #fff;
-      font-weight: 700;
-      font-size: 2rem;
+      padding: 20px;
       user-select: none;
-      box-shadow: 0 4px 12px rgba(138, 99, 255, 0.5);
     }
 
-    h1 {
-      font-weight: 700;
-      font-size: 2.8rem;
-      color: #4a4a4a;
-    }
-
-    .subtitle {
-      font-weight: 400;
-      font-size: 1.1rem;
-      color: #7a7a7a;
-      margin-top: 4px;
-    }
-
-    nav {
+    /* Windows 95 style window */
+    .window {
+      width: 640px;
+      max-width: 100%;
+      background: #c0c0c0;
+      border: 2px solid #000;
+      box-shadow:
+        2px 2px 0 #fff,
+        4px 4px 0 #000;
+      font-size: 22px;
+      color: #000;
       display: flex;
-      gap: 24px;
-      margin-bottom: 36px;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 12px;
+      flex-direction: column;
+      user-select: text;
+    }
+
+    /* Title bar */
+    .title-bar {
+      background: linear-gradient(to bottom, #000080, #0000a0);
+      color: white;
+      padding: 4px 8px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #fff;
+      text-shadow: 1px 1px #000;
+      height: 30px;
+    }
+
+    /* Title text */
+    .title-bar-text {
       user-select: none;
     }
 
-    nav button {
-      background: none;
-      border: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: #7a7a7a;
+    /* Close button style */
+    .title-bar-controls {
+      display: flex;
+      gap: 4px;
+    }
+    .title-bar-controls button {
+      width: 28px;
+      height: 24px;
+      background: #c0c0c0;
+      border: 2px solid #fff;
+      box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #404040;
       cursor: pointer;
-      padding: 8px 12px;
-      border-radius: 8px;
-      transition: color 0.25s ease, background-color 0.25s ease;
+      font-weight: bold;
+      color: #000;
+      font-family: 'VT323', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      user-select: none;
+      transition: background 0.15s;
+    }
+    .title-bar-controls button:hover {
+      background: #ff0000;
+      color: #fff;
+      border-color: #a00000;
+      box-shadow: none;
     }
 
+    /* Content area */
+    .window-body {
+      background: #000;
+      color: #00ff00;
+      padding: 20px 28px;
+      font-size: 1rem;
+      flex-grow: 1;
+      overflow-y: auto;
+      line-height: 1.4;
+    }
+
+    /* Navigation buttons (like Win95 buttons) */
+    nav {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 14px;
+      user-select: none;
+    }
+    nav button {
+      background: #c0c0c0;
+      border: 2px solid #fff;
+      box-shadow:
+        inset 1px 1px 0 #fff,
+        inset -1px -1px 0 #404040;
+      padding: 6px 16px;
+      font-family: 'VT323', monospace;
+      font-size: 20px;
+      cursor: pointer;
+      color: #000;
+      transition: background 0.2s;
+    }
+    nav button:hover {
+      background: #0000ff;
+      color: #fff;
+      border-color: #0000aa;
+      box-shadow: none;
+    }
     nav button.active {
-      color: #6c63ff;
-      background-color: #f0eaff;
-      box-shadow: 0 2px 6px rgba(108, 99, 255, 0.3);
-    }
-
-    nav button:hover:not(.active) {
-      color: #6c63ff;
-      background-color: #faf7ff;
-    }
-
-    #content {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: #444;
-      min-height: 220px;
-    }
-
-    #content p {
-      margin-bottom: 1rem;
-    }
-
-    #content strong {
-      color: #6c63ff;
-    }
-
-    #content em {
-      color: #999;
+      background: #000080;
+      color: #0f0;
+      border-color: #00ff00;
+      box-shadow: inset 1px 1px 4px #00ff00;
     }
 
     a {
-      color: #6c63ff;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    a:hover {
+      color: #00ff00;
       text-decoration: underline;
+      cursor: pointer;
+    }
+    a:hover {
+      color: #aaffaa;
     }
 
-    @media (max-width: 600px) {
-      .container {
-        padding: 24px 20px;
-      }
-      nav {
-        justify-content: center;
-        gap: 16px;
-      }
+    /* Scrollbar styling for content */
+    .window-body::-webkit-scrollbar {
+      width: 8px;
+    }
+    .window-body::-webkit-scrollbar-track {
+      background: #111;
+    }
+    .window-body::-webkit-scrollbar-thumb {
+      background: #00ff00;
+      border-radius: 4px;
     }
   </style>
 </head>
 <body>
-
-  <div class="container" role="main" aria-label="Developer portfolio content">
-    <header class="header">
-      <div class="logo" aria-label="Logo">D</div>
-      <div>
-        <h1>Dude</h1>
-        <div class="subtitle">just a nerd on the internet</div>
+  <div class="window" role="main" aria-label="Developer portfolio window">
+    <div class="title-bar">
+      <div class="title-bar-text">dude — web terminal</div>
+      <div class="title-bar-controls" role="toolbar" aria-label="Window controls">
+        <button title="Close window" aria-label="Close window" onclick="alert('No closing here!')">×</button>
       </div>
-    </header>
-
-    <nav aria-label="Primary navigation">
-      <button id="btn-about" class="active" onclick="setContent('about')">About</button>
-      <button id="btn-projects" onclick="setContent('projects')">Projects</button>
-      <button id="btn-socials" onclick="setContent('socials')">Socials</button>
-      <button id="btn-blog" onclick="setContent('blog')">Blog</button>
-    </nav>
-
-    <section id="content" tabindex="0" aria-live="polite">
-      <p>
-        I'm <strong>Dude</strong>, a curious dev, tester, and semi-chaotic creative.  
-        I break stuff. Then I fix it. Then I break it better.
-      </p>
-      <p><em>Use the tabs above to explore my lair.</em></p>
-    </section>
+    </div>
+    <div class="window-body">
+      <nav aria-label="Primary navigation">
+        <button id="btn-about" class="active" onclick="setContent('about')">about</button>
+        <button id="btn-projects" onclick="setContent('projects')">projects</button>
+        <button id="btn-socials" onclick="setContent('socials')">socials</button>
+        <button id="btn-blog" onclick="setContent('blog')">blog</button>
+      </nav>
+      <div id="content" tabindex="0" aria-live="polite">
+        <p>Welcome 👋</p>
+        <p>I'm <strong>dude</strong>, a curious dev, tester, and semi-chaotic creative.</p>
+        <p>I break stuff. Then I fix it. Then I break it better.</p>
+        <p><em>Use the buttons above to explore my lair.</em></p>
+      </div>
+    </div>
   </div>
 
   <script>
     const contentMap = {
       about: `
-        <p>Hey, I’m <strong>Dude</strong>. I build weird tools, test edge cases, and mess with tech just to see what breaks. It’s a lifestyle.</p>
-        <p>Currently exploring opportunities at Discord or just building cool stuff alone in the void.</p>
+        <p>Hey, I’m <strong>dude</strong>. I build weird tools, test edge cases, and mess with tech just to see what breaks. It’s a lifestyle.</p>
+        <p>Currently manifesting a role at Discord. Or maybe just building cool stuff alone in the void.</p>
       `,
       projects: `
         <p><strong>🧪 BreakThings.js</strong> — A test framework that breaks before you do.</p>
@@ -200,6 +212,5 @@
       container.focus();
     }
   </script>
-
 </body>
 </html>
