@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dude — Terminal Vibes</title>
+  <title>Dude — Web Terminal</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* Reset & Base */
     * {
       margin: 0;
       padding: 0;
@@ -37,7 +36,6 @@
       text-decoration: underline;
     }
 
-    /* Container */
     .container {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(12px);
@@ -49,12 +47,18 @@
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
     }
 
-    /* Header */
     .header {
       display: flex;
       align-items: center;
       gap: 15px;
       margin-bottom: 30px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      object-fit: cover;
     }
 
     .header h1 {
@@ -68,20 +72,25 @@
 
     nav {
       display: flex;
-      justify-content: flex-end;
-      gap: 24px;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
       font-size: 1rem;
       margin-bottom: 30px;
-      flex-wrap: wrap;
     }
 
     nav a {
       color: #eaeaea;
-      transition: color 0.2s;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background 0.2s, transform 0.2s;
     }
 
     nav a:hover {
-      color: #c3a6ff;
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
     }
 
     h2 {
@@ -120,15 +129,16 @@
 <body>
 
   <div class="container">
-    <!-- Header -->
+    <!-- Header with logo -->
     <div class="header">
+      <img src="your-logo.png" alt="Logo" class="logo" />
       <div>
-        <h1>👾 Dude</h1>
+        <h1>Dude</h1>
         <div class="subtitle">just a nerd on the internet</div>
       </div>
     </div>
 
-    <!-- Nav -->
+    <!-- The 4 Buttons of Hell -->
     <nav>
       <a href="#" onclick="setContent('about')">ℹ️ About</a>
       <a href="#" onclick="setContent('projects')">📦 Projects</a>
@@ -136,30 +146,33 @@
       <a href="#" onclick="setContent('blog')">🖥️ Blog</a>
     </nav>
 
-    <!-- Dynamic Content Area -->
+    <!-- Dynamic content box -->
     <div id="content">
       <h2>Welcome 👋</h2>
       <p>
         I'm <strong>Dude</strong> — a curious dev, tester, and semi-chaotic creative.  
         I break stuff. Then I fix it. Then I break it better.
       </p>
-      <p><em>Use the nav above to switch sections. No page reloads. Just vibes.</em></p>
+      <p><em>Use the buttons of hell above to explore my lair.</em></p>
     </div>
   </div>
 
+  <!-- JS to make the buttons of hell do their job -->
   <script>
     const contentMap = {
       about: `
         <h2>ℹ️ About Me</h2>
-        <p>Hey, I’m <strong>Dude</strong>. I build weird tools, debug weird bugs, and sometimes film it.</p>
-        <p>I’m learning all kinds of tech, dreaming of working at Discord someday. Or maybe just chillin' in my own cave, coding forever.</p>
+        <p>Yo, I’m <strong>Dude</strong>. I build weird tools, test edge cases, and mess with tech just to see what breaks. It's a lifestyle.</p>
+        <p>Currently manifesting a role at Discord. Or maybe just building cool stuff alone in the void.</p>
       `,
       projects: `
         <h2>📦 Projects</h2>
         <ul>
-          <li><strong>Absolute nothing</strong> — there nothing yet</li>
+          <li><strong>🧪 BreakThings.js</strong> — A test framework that breaks before you do</li>
+          <li><strong>🎮 GlitchEngine</strong> — Micro game engine built in the chaos zone</li>
+          <li><strong>🔍 Inspectr</strong> — A dev tool for poking around places you probably shouldn’t</li>
         </ul>
-        <p><em>More coming soon.™</em></p>
+        <p><em>More to come.™ Stay unstable.</em></p>
       `,
       socials: `
         <h2>🧑‍🤝‍🧑 Socials</h2>
@@ -169,17 +182,13 @@
       `,
       blog: `
         <h2>🖥️ Blog</h2>
-        <p>Coming soon... maybe. Probably. Eventually.</p>
-        <p>Topics may include:</p>
-        <ul>
-          <li>Ill do it soon</li>
-        </ul>
+        <p>I keep saying I’ll blog. Maybe I will. Maybe I won't.</p>
       `
     };
 
     function setContent(key) {
       const container = document.getElementById("content");
-      container.innerHTML = contentMap[key] || "<p>Oops. Nothing here.</p>";
+      container.innerHTML = contentMap[key] || "<p>404: That button did nothing.</p>";
     }
   </script>
 
