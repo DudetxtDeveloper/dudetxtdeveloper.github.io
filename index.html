@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dude — Welcome</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Dude — Terminal Vibes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     /* Reset & Base */
     * {
@@ -18,19 +18,18 @@
       background: #000 url('https://grainy-gradients.vercel.app/noise.svg');
       background-size: cover;
       font-family: 'Inter', sans-serif;
-      color: #111;
-      line-height: 1.7;
+      color: #eaeaea;
+      line-height: 1.6;
     }
 
     body {
       display: flex;
       justify-content: center;
-      align-items: start;
       padding: 60px 20px;
     }
 
     a {
-      color: #4a5cff;
+      color: #8a63ff;
       text-decoration: none;
     }
 
@@ -40,15 +39,14 @@
 
     /* Container */
     .container {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
       padding: 40px;
-      max-width: 950px;
+      max-width: 900px;
       width: 100%;
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-      color: #eaeaea;
     }
 
     /* Header */
@@ -59,16 +57,12 @@
       margin-bottom: 30px;
     }
 
-    .header img {
-      height: 48px;
-    }
-
     .header h1 {
       font-size: 2rem;
     }
 
     .subtitle {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: #aaa;
     }
 
@@ -78,21 +72,21 @@
       gap: 24px;
       font-size: 1rem;
       margin-bottom: 30px;
+      flex-wrap: wrap;
     }
 
     nav a {
       color: #eaeaea;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: #c3a6ff;
     }
 
     h2 {
-      font-size: 1.7rem;
+      font-size: 1.6rem;
       margin: 20px 0 10px;
-    }
-
-    h3 {
-      font-size: 1.2rem;
-      margin: 18px 0 10px;
-      color: #fff;
     }
 
     p {
@@ -101,28 +95,15 @@
 
     ul {
       list-style: none;
-      padding: 0;
+      padding-left: 0;
     }
 
     li {
       margin-bottom: 8px;
     }
 
-    .two-columns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      margin-top: 20px;
-    }
-
-    .left, .right {
-      flex: 1;
-      min-width: 250px;
-    }
-
     em {
       color: #aaa;
-      font-size: 0.9em;
     }
 
     strong {
@@ -132,12 +113,6 @@
     @media (max-width: 600px) {
       nav {
         justify-content: center;
-        flex-wrap: wrap;
-        gap: 16px;
-      }
-
-      .two-columns {
-        flex-direction: column;
       }
     }
   </style>
@@ -147,54 +122,66 @@
   <div class="container">
     <!-- Header -->
     <div class="header">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Minecraft_Enderman_face.svg/1024px-Minecraft_Enderman_face.svg.png" alt="logo" />
       <div>
-        <h1>Dude</h1>
-        <div class="subtitle">official website</div>
+        <h1>👾 Dude</h1>
+        <div class="subtitle">just a nerd on the internet</div>
       </div>
     </div>
 
     <!-- Nav -->
     <nav>
-      <a href="#about">ℹ️ About</a>
-      <a href="#projects">📦 Projects</a>
-      <a href="#socials">🧑‍🤝‍🧑 Socials</a>
-      <a href="#blog">🖥️ Blog</a>
+      <a href="#" onclick="setContent('about')">ℹ️ About</a>
+      <a href="#" onclick="setContent('projects')">📦 Projects</a>
+      <a href="#" onclick="setContent('socials')">🧑‍🤝‍🧑 Socials</a>
+      <a href="#" onclick="setContent('blog')">🖥️ Blog</a>
     </nav>
 
-    <!-- Intro -->
-    <h2>Welcome 👋</h2>
-    <p>
-      I'm <strong>Dude</strong> — a curious developer, tester, and semi-introverted creative creature. I love breaking things, fixing them, and pretending I had a plan the whole time. You’ll find me rambling about code, learning weird tech things, and occasionally dreaming of working at Discord.
-    </p>
-
-    <!-- Two Column Layout -->
-    <div class="two-columns">
-      <!-- Left: What I do -->
-      <div class="left">
-        <h3>🛠️ What I do</h3>
-        <ul>
-          <li>💻 Build cross-platform apps with <strong>CSS</strong> & <strong>HTML</strong></li>
-          <li>🧪 Tinker with bugs — both intentional and... accidental</li>
-          <li>📹 Create tech videos (when I remember to hit record)</li>
-          <li>🐛 Analyze malware & learn from security breakdowns</li>
-        </ul>
-      </div>
-
-      <!-- Right: What I enjoy -->
-      <div class="right">
-        <h3>🧠 What I enjoy</h3>
-        <ul>
-          <li>🎬 Editing nerdy videos</li>
-          <li>🎮 Game design & solo dev life</li>
-          <li>🧘 Quiet, cozy code nights</li>
-        </ul>
-      </div>
+    <!-- Dynamic Content Area -->
+    <div id="content">
+      <h2>Welcome 👋</h2>
+      <p>
+        I'm <strong>Dude</strong> — a curious dev, tester, and semi-chaotic creative.  
+        I break stuff. Then I fix it. Then I break it better.
+      </p>
+      <p><em>Use the nav above to switch sections. No page reloads. Just vibes.</em></p>
     </div>
-
-    <p style="margin-top: 30px;"><strong>Want to learn more?</strong> Use the navigation bar above 👆</p>
-    <p><em>See you there! ~</em></p>
   </div>
+
+  <script>
+    const contentMap = {
+      about: `
+        <h2>ℹ️ About Me</h2>
+        <p>Hey, I’m <strong>Dude</strong>. I build weird tools, debug weird bugs, and sometimes film it.</p>
+        <p>I’m learning all kinds of tech, dreaming of working at Discord someday. Or maybe just chillin' in my own cave, coding forever.</p>
+      `,
+      projects: `
+        <h2>📦 Projects</h2>
+        <ul>
+          <li><strong>Absolute nothing</strong> — there nothing yet</li>
+        </ul>
+        <p><em>More coming soon.™</em></p>
+      `,
+      socials: `
+        <h2>🧑‍🤝‍🧑 Socials</h2>
+        <ul>
+          <li><a href="https://www.youtube.com/channel/UC3AIrkPjQYPjK5m5m0LwF6g" target="_blank">📺 YouTube</a></li>
+        </ul>
+      `,
+      blog: `
+        <h2>🖥️ Blog</h2>
+        <p>Coming soon... maybe. Probably. Eventually.</p>
+        <p>Topics may include:</p>
+        <ul>
+          <li>Ill do it soon</li>
+        </ul>
+      `
+    };
+
+    function setContent(key) {
+      const container = document.getElementById("content");
+      container.innerHTML = contentMap[key] || "<p>Oops. Nothing here.</p>";
+    }
+  </script>
 
 </body>
 </html>
